@@ -46,7 +46,7 @@ export default function ProblemSection() {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                         >
                             <GlowCard
                                 title={problem.title}
@@ -101,13 +101,6 @@ export default function ProblemSection() {
                                         <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-all duration-500" />
                                         <ShieldCheck className="h-32 w-32 md:h-40 md:w-40 relative z-10 text-primary drop-shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
 
-                                        {/* Floating Tags for 'Organization' */}
-                                        <div className="absolute top-12 left-0 -translate-x-1/2 py-1.5 px-4 bg-black/80 border border-white/10 rounded-full text-[8px] font-bold text-white uppercase tracking-widest backdrop-blur-md animate-bounce" style={{ animationDuration: '3s' }}>
-                                            Active Shield
-                                        </div>
-                                        <div className="absolute bottom-12 right-0 translate-x-1/2 py-1.5 px-4 bg-black/80 border border-white/10 rounded-full text-[8px] font-bold text-white uppercase tracking-widest backdrop-blur-md animate-bounce" style={{ animationDuration: '4s' }}>
-                                            Core Sec
-                                        </div>
                                     </div>
 
                                     {/* Secondary Glow */}
