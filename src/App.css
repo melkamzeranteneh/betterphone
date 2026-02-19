@@ -1,0 +1,20 @@
+/* Custom styles for BetterPhone */
+.animate-bounce-slow {
+  animation: bounce-slow 4s infinite ease-in-out;
+}
+
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(-5%);
+  }
+
+  50% {
+    transform: translateY(5%);
+  }
+}
+
+.font-heading {
+  font-family: 'Outfit', sans-serif;
+}
