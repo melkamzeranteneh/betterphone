@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion"
-import { useEffect, useRef } from "react"
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion"
+import { useRef } from "react"
 
 export default function Hero() {
     const ref = useRef<HTMLElement>(null)
