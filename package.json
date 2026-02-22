@@ -20,6 +20,7 @@
     "framer-motion": "^12.34.2",
     "lucide-react": "^0.574.0",
     "react": "^19.2.0",
+    "react-device-mockup": "^1.0.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.1",
     "tailwindcss-animate": "^1.0.7"
