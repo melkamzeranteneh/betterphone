@@ -11,7 +11,7 @@ const MODE_FEATURES = [
 ]
 
 
-import React, { useState } from "react"
+import { useState } from "react"
 
 const MODE_PHONE = {
     strict: {

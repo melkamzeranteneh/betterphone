@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Check, Lock, ShieldCheck } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -30,26 +29,6 @@ const FamilyShape = () => (
         <line x1="90" y1="32" x2="90" y2="38" stroke="#d4af37" strokeWidth="2" strokeLinecap="round" />
         <line x1="128" y1="70" x2="122" y2="70" stroke="#d4af37" strokeWidth="2" strokeLinecap="round" />
         <line x1="90" y1="108" x2="90" y2="102" stroke="#d4af37" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-)
-
-/** Lifetime: diamond / gem facets */
-const LifetimeShape = () => (
-    <svg width="140" height="120" viewBox="0 0 140 120" fill="none" className="absolute bottom-0 right-0 opacity-40">
-        {/* Large diamond */}
-        <polygon points="90,8 130,45 90,108 50,45" stroke="#6366f1" strokeWidth="1.5" fill="none" />
-        {/* Inner facets */}
-        <line x1="90" y1="8" x2="90" y2="108" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
-        <line x1="50" y1="45" x2="130" y2="45" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
-        <line x1="90" y1="8" x2="50" y2="45" stroke="#6366f1" strokeWidth="1" opacity="0.4" />
-        <line x1="90" y1="8" x2="130" y2="45" stroke="#6366f1" strokeWidth="1" opacity="0.4" />
-        <line x1="50" y1="45" x2="90" y2="108" stroke="#6366f1" strokeWidth="1" opacity="0.4" />
-        <line x1="130" y1="45" x2="90" y2="108" stroke="#6366f1" strokeWidth="1" opacity="0.4" />
-        {/* Corner dots */}
-        <circle cx="90" cy="8" r="3" fill="#6366f1" />
-        <circle cx="130" cy="45" r="3" fill="#6366f1" />
-        <circle cx="90" cy="108" r="3" fill="#6366f1" />
-        <circle cx="50" cy="45" r="3" fill="#6366f1" />
     </svg>
 )
 
@@ -101,8 +80,6 @@ const plans = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Pricing() {
-    const [billing, setBilling] = useState<"monthly" | "annual">("annual")
-
     return (
         <section id="pricing" className="py-32 bg-background relative overflow-hidden">
             {/* Corner page decoration — top-left dots grid */}
