@@ -1,41 +1,62 @@
-import { AlertCircle, Moon, Users, ShieldAlert, Brain, ShieldX } from "lucide-react"
+import { AlertCircle, Moon, Users, ShieldAlert, Brain, ShieldX, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 
 const problems = [
-    { title: "Addictive Algorithm Design", icon: <Brain className="h-5 w-5" /> },
-    { title: "Sleep Disruption", icon: <Moon className="h-5 w-5" /> },
-    { title: "Cyberbullying", icon: <Users className="h-5 w-5" /> },
-    { title: "Harmful Content Exposure", icon: <ShieldAlert className="h-5 w-5" /> },
-    { title: "AI Accelerating Risks", icon: <AlertCircle className="h-5 w-5" /> },
-    { title: "Complex Parental Controls", icon: <ShieldX className="h-5 w-5" /> },
+    { title: "Addictive Algorithm Design", icon: Brain },
+    { title: "Sleep Disruption", icon: Moon },
+    { title: "Cyberbullying", icon: Users },
+    { title: "Harmful Content Exposure", icon: ShieldAlert },
+    { title: "AI Accelerating Risks", icon: AlertCircle },
+    { title: "Complex Parental Controls", icon: ShieldX },
 ]
 
 export default function ProblemSection() {
     return (
-        <section id="why" className="relative bg-background pt-32 pb-24 overflow-hidden">
+        <section id="why" className="relative bg-[#030303] pt-32 pb-24 overflow-hidden border-b border-white/[0.05]">
+            {/* Background Glow */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+
             <div className="container px-6 mx-auto relative z-10">
                 {/* 2. THE PROBLEM */}
-                <div className="max-w-3xl mx-auto text-center mb-24">
+                <div className="max-w-4xl mx-auto text-center mb-24">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6"
+                    >
+                        <ShieldAlert className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Systemic Crisis</span>
+                    </motion.div>
+
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-6 font-sans"
+                        className="text-4xl md:text-6xl font-black tracking-tight text-white mb-8 font-heading leading-tight"
                     >
-                        Modern Smartphones Weren’t Built for Kids.
+                        Modern Smartphones <br />
+                        <span className="text-primary/60">Weren’t Built for Kids.</span>
                     </motion.h2>
+
+                    <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-16 font-medium">
+                        Standard OS architectures are designed for maximum retention and data extraction. They are tools of the attention economy, not childhood development.
+                    </p>
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.1 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-12"
+                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
                     >
                         {problems.map((problem, i) => (
-                            <div key={i} className="flex items-center gap-3 p-4 hardware-card bg-secondary/30 border-transparent text-sm font-medium text-foreground">
-                                <div className="text-muted-foreground">{problem.icon}</div>
-                                <span>{problem.title}</span>
+                            <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-[#0d0d0d] border border-white/5 hover:border-primary/20 hover:bg-[#121212] transition-all group cursor-default">
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                    <problem.icon className="h-5 w-5 text-slate-500 group-hover:text-primary transition-colors" />
+                                </div>
+                                <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{problem.title}</span>
                             </div>
                         ))}
                     </motion.div>
@@ -47,31 +68,43 @@ export default function ProblemSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    className="mt-32 max-w-4xl mx-auto hardware-card p-10 md:p-16 text-center"
+                    className="mt-32 max-w-5xl mx-auto rounded-[3rem] bg-gradient-to-b from-[#0d0d0d] to-transparent border border-white/[0.05] p-10 md:p-20 text-center relative overflow-hidden"
                 >
-                    <h3 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+
+                    <h3 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 font-heading">
                         BetterPhone changes the foundation.
                     </h3>
-                    <p className="text-xl text-muted-foreground font-medium mb-12">
-                        You don’t configure protection.<br className="hidden sm:block" /> You start with it.
+                    <p className="text-xl text-slate-400 font-medium mb-16 max-w-2xl mx-auto">
+                        We don't just "add" parental controls.<br className="hidden sm:block" /> We redesigned the interaction layer from scratch.
                     </p>
 
                     <div className="grid md:grid-cols-3 gap-8 relative">
                         {/* Connecting Line */}
-                        <div className="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-px bg-border -translate-y-1/2 z-0" />
+                        <div className="hidden md:block absolute top-[22px] left-[15%] right-[15%] h-[1px] bg-white/10 z-0" />
 
                         {[
-                            { step: "1", title: "Buy it" },
-                            { step: "2", title: "Give it" },
-                            { step: "3", title: "Protection active" }
+                            { step: "1", title: "Select Device", desc: "Choose hardware tailored for focus." },
+                            { step: "2", title: "Smart Config", desc: "Automated modes based on age." },
+                            { step: "3", title: "Active Safety", desc: "Real-time semantic protection." }
                         ].map((item, index) => (
-                            <div key={index} className="relative z-10 flex flex-col items-center gap-4 bg-card w-full p-4">
-                                <div className="h-12 w-12 rounded-full border border-border bg-background flex items-center justify-center text-lg font-semibold shadow-sm">
+                            <div key={index} className="relative z-10 flex flex-col items-center gap-6">
+                                <div className="h-11 w-11 rounded-full border border-primary/30 bg-[#0d0d0d] flex items-center justify-center text-sm font-black text-primary shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                                     {item.step}
                                 </div>
-                                <div className="font-semibold text-foreground tracking-tight">{item.title}</div>
+                                <div className="space-y-1">
+                                    <h4 className="font-bold text-white text-lg font-heading">{item.title}</h4>
+                                    <p className="text-slate-500 text-xs font-medium max-w-[150px] mx-auto">{item.desc}</p>
+                                </div>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-20">
+                        <button className="luxury-button luxury-button-gold px-10">
+                            See the Transformation
+                            <ArrowRight className="w-4 h-4 ml-2 inline" />
+                        </button>
                     </div>
                 </motion.div>
             </div>

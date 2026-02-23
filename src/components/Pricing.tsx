@@ -191,8 +191,8 @@ export default function Pricing() {
                                 key={b}
                                 onClick={() => setBilling(b)}
                                 className={`relative px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${billing === b
-                                        ? "bg-white text-black shadow-sm"
-                                        : "text-slate-400 hover:text-white"
+                                    ? "bg-white text-black shadow-sm"
+                                    : "text-slate-400 hover:text-white"
                                     }`}
                             >
                                 {b === "monthly" ? "Monthly" : "Annual"}

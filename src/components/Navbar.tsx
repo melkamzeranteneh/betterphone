@@ -1,47 +1,93 @@
-import { ShieldCheck, User, Menu } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Menu } from "lucide-react"
+import { motion, useScroll, useSpring } from "framer-motion"
 
 export default function Navbar() {
+    const [scrolled, setScrolled] = useState(false)
+    const [activeSection, setActiveSection] = useState("home")
+    const { scrollYProgress } = useScroll()
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    })
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20)
+
+            // Basic active section detection
+            const sections = ["features", "age-selector", "mode-visualizer", "pricing-builder"]
+            for (const section of sections) {
+                const element = document.getElementById(section)
+                if (element) {
+                    const rect = element.getBoundingClientRect()
+                    if (rect.top >= 0 && rect.top <= 300) {
+                        setActiveSection(section)
+                        break
+                    }
+                }
+            }
+        }
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
+
+    const navLinks = [
+        { name: "Simulation", href: "#age-selector" },
+        { name: "Modes", href: "#mode-visualizer" },
+        { name: "Evolution", href: "#threats" },
+        { name: "Family Plan", href: "#pricing-builder" },
+        { name: "FAQ", href: "#faq" }
+    ]
+
     return (
-        <nav className="fixed top-8 left-0 w-full z-50 px-8 flex items-center justify-between pointer-events-none">
-            {/* Left: Logo (Mimicking the abstract circle from the image) */}
-            <div className="flex items-center gap-2 pointer-events-auto cursor-pointer group hover:scale-105 transition-transform">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                    <div className="w-6 h-6 rounded-full bg-[#050505] flex items-center justify-center ml-1 mt-1">
-                        <div className="w-3 h-3 bg-white rounded-full mr-1 mb-1" />
+        <nav className="fixed top-0 left-0 w-full z-50 px-6 pt-6 flex flex-col items-center pointer-events-none" role="navigation">
+            <div className={`max-w-7xl mx-auto w-full flex items-center justify-between backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 pointer-events-auto shadow-2xl transition-all duration-500 ${scrolled ? "bg-black/60 py-2" : "bg-black/40 py-4"
+                }`}>
+                {/* Left: Logo */}
+                <a href="#" className="flex items-center gap-3 cursor-pointer group hover:scale-105 transition-transform">
+                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-black font-black shadow-[0_0_20px_rgba(212,175,55,0.3)] group-hover:rotate-12 transition-transform">
+                        BP
                     </div>
+                    <span className="text-white font-black tracking-tighter text-xl font-heading">
+                        Better<span className="text-primary">Phone</span>
+                    </span>
+                </a>
+
+                {/* Center: Main Nav */}
+                <div className="hidden lg:flex items-center gap-6">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.name}
+                            href={link.href}
+                            className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative py-1 group ${activeSection === link.href.replace("#", "") ? "text-white" : "text-white/40 hover:text-white"
+                                }`}
+                        >
+                            {link.name}
+                            <span className={`absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-300 ${activeSection === link.href.replace("#", "") ? "w-full" : "w-0 group-hover:w-full"
+                                }`} />
+                        </a>
+                    ))}
+                </div>
+
+                {/* Right: Actions */}
+                <div className="flex items-center gap-4">
+                    <button className="hidden sm:flex luxury-button luxury-button-gold !h-9 !px-6 !text-[9px] !rounded-xl">
+                        Pre-order Now
+                    </button>
+                    {/* Mobile Menu */}
+                    <button className="lg:hidden text-white w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <Menu className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
 
-            {/* Center: Main Nav Pill */}
-            <div className="hidden lg:flex items-center gap-3 pointer-events-auto">
-                <div className="flex items-center gap-8 px-8 py-3 rounded-full bg-[#111] border border-white/5 backdrop-blur-xl">
-                    <a href="#" className="text-white text-sm font-medium transition-colors">Home</a>
-                    <a href="#simulator" className="text-white/50 text-sm hover:text-white transition-colors">Simulator</a>
-                    <a href="#features" className="text-white/50 text-sm hover:text-white transition-colors">Features</a>
-                    <a href="#pricing" className="text-white/50 text-sm hover:text-white transition-colors">Pricing</a>
-                    <a href="#faq" className="text-white/50 text-sm hover:text-white transition-colors">FAQ</a>
-                </div>
-
-                {/* Secondary Pill */}
-                <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-[#111] border border-white/5 backdrop-blur-xl cursor-pointer hover:bg-[#1a1a1a] transition-all">
-                    <span className="text-white/80 text-sm pl-2">Protection ↗</span>
-                    <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center">
-                        <ShieldCheck className="w-4 h-4 text-black" />
-                    </div>
-                </div>
-            </div>
-
-            {/* Right: Actions */}
-            <div className="flex items-center gap-4 pointer-events-auto">
-                <button className="hidden sm:flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-medium group">
-                    <User className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                    Create Account
-                </button>
-                {/* Mobile Menu */}
-                <button className="lg:hidden text-white w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
-                    <Menu className="w-5 h-5" />
-                </button>
-            </div>
+            {/* Scroll Progress Bar */}
+            <motion.div
+                className="h-[2px] bg-primary w-full max-w-7xl mt-2 rounded-full origin-left"
+                style={{ scaleX }}
+            />
         </nav>
     )
 }
