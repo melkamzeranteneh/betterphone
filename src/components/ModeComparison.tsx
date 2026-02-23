@@ -10,7 +10,55 @@ const MODE_FEATURES = [
     { name: "Interaction Batching", strict: true, balanced: true, relaxed: "Optional" },
 ]
 
+
+import React, { useState } from "react"
+
+const MODE_PHONE = {
+    strict: {
+        label: "Strict",
+        bg: "bg-slate-50",
+        bar: "bg-red-500/80",
+        icon: <Shield className="w-7 h-7 text-red-500" />, // lock icon
+        accent: "text-red-500",
+        apps: [
+            { name: "Phone", icon: <Shield className="w-6 h-6 text-red-500" /> },
+            { name: "SOS", icon: <Zap className="w-6 h-6 text-red-500" /> },
+            { name: "Notes", icon: <div className="font-black text-lg italic text-red-500">N</div> },
+        ],
+        desc: "Only essential apps. Maximum protection."
+    },
+    balanced: {
+        label: "Default",
+        bg: "bg-slate-50",
+        bar: "bg-yellow-400/80",
+        icon: <Activity className="w-7 h-7 text-yellow-500" />, // activity icon
+        accent: "text-yellow-500",
+        apps: [
+            { name: "Phone", icon: <Activity className="w-6 h-6 text-yellow-500" /> },
+            { name: "Messages", icon: <Globe className="w-6 h-6 text-yellow-500" /> },
+            { name: "Notes", icon: <div className="font-black text-lg italic text-yellow-500">N</div> },
+        ],
+        desc: "Curated apps. Balanced safety and freedom."
+    },
+    relaxed: {
+        label: "Relaxed",
+        bg: "bg-slate-50",
+        bar: "bg-emerald-400/80",
+        icon: <Globe className="w-7 h-7 text-emerald-500" />, // globe icon
+        accent: "text-emerald-500",
+        apps: [
+            { name: "Phone", icon: <Globe className="w-6 h-6 text-emerald-500" /> },
+            { name: "Messages", icon: <Activity className="w-6 h-6 text-emerald-500" /> },
+            { name: "Music", icon: <Zap className="w-6 h-6 text-emerald-500" /> },
+            { name: "Notes", icon: <div className="font-black text-lg italic text-emerald-500">N</div> },
+        ],
+        desc: "Most apps available. For responsible use."
+    },
+}
+
 export default function ModeComparison() {
+    const [mode, setMode] = useState<'strict' | 'balanced' | 'relaxed'>('balanced')
+    const modeData = MODE_PHONE[mode]
     return (
         <section id="detailed-modes" className="py-24 bg-[#030303] border-b border-white/[0.05]">
             <div className="max-w-7xl mx-auto px-6">
@@ -28,6 +76,52 @@ export default function ModeComparison() {
                     <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
                         A detailed look at how each mode alters the device's psychological and technical DNA.
                     </p>
+                </div>
+
+                {/* Interactive Phone UI */}
+                <div className="flex flex-col items-center mb-16">
+                    <div className="flex gap-2 mb-6">
+                        <button onClick={() => setMode('strict')} className={`px-5 py-2 rounded-full font-black text-xs uppercase border transition-all ${mode === 'strict' ? 'bg-red-500 text-white border-red-500' : 'bg-white/5 text-red-400 border-red-500/30 hover:bg-red-500/10'}`}>Strict</button>
+                        <button onClick={() => setMode('balanced')} className={`px-5 py-2 rounded-full font-black text-xs uppercase border transition-all ${mode === 'balanced' ? 'bg-yellow-400 text-black border-yellow-400' : 'bg-white/5 text-yellow-500 border-yellow-400/30 hover:bg-yellow-400/10'}`}>Default</button>
+                        <button onClick={() => setMode('relaxed')} className={`px-5 py-2 rounded-full font-black text-xs uppercase border transition-all ${mode === 'relaxed' ? 'bg-emerald-400 text-black border-emerald-400' : 'bg-white/5 text-emerald-500 border-emerald-400/30 hover:bg-emerald-400/10'}`}>Relaxed</button>
+                    </div>
+                    <div className="relative w-[220px] h-[440px] bg-[#080808] rounded-[2.5rem] border-[7px] border-[#1a1a1a] shadow-[0_30px_60px_rgba(0,0,0,0.5),inset_0_0_10px_rgba(255,255,255,0.05)] flex items-center justify-center">
+                        {/* Phone Screen */}
+                        <div className={`absolute inset-1 rounded-[2.2rem] overflow-hidden ${modeData.bg} flex flex-col p-6 pt-8`}>
+                            {/* Status Bar */}
+                            <div className="flex justify-between items-center px-1 mb-6">
+                                <span className="text-slate-900 font-bold text-[13px]">9:41</span>
+                                <div className="flex items-center gap-1.5 opacity-70">
+                                    <Shield className="w-3.5 h-3.5 text-slate-900" />
+                                    <Globe className="w-3.5 h-3.5 text-slate-900" />
+                                    <div className="w-5 h-2.5 rounded-[3px] border border-slate-900/50 relative">
+                                        <div className="absolute left-[1px] top-[1px] bottom-[1px] right-2 bg-slate-900 rounded-[1px]" />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Mode Icon & Label */}
+                            <div className="flex flex-col items-center mb-6">
+                                <div className="w-12 h-12 rounded-2xl bg-white border border-black/10 flex items-center justify-center mb-2 shadow">
+                                    {modeData.icon}
+                                </div>
+                                <span className={`font-black text-lg ${modeData.accent}`}>{modeData.label} Mode</span>
+                                <span className="text-xs text-slate-400 font-bold mt-1">{modeData.desc}</span>
+                            </div>
+                            {/* App Grid */}
+                            <div className="grid grid-cols-3 gap-y-6 gap-x-3 px-2 mb-8">
+                                {modeData.apps.map((app, i) => (
+                                    <div key={i} className="flex flex-col items-center gap-2.5">
+                                        <div className={`w-12 h-12 rounded-2xl bg-slate-200/80 border border-slate-900/10 flex items-center justify-center shadow text-slate-900/70`}>
+                                            {app.icon}
+                                        </div>
+                                        <span className="text-[10px] font-bold text-slate-900/40">{app.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Home Bar */}
+                            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-20 h-1 bg-slate-900/20 rounded-full" />
+                        </div>
+                    </div>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -48,7 +142,7 @@ export default function ModeComparison() {
                                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                                             <Activity className="w-4 h-4 text-primary" />
                                         </div>
-                                        <span className="text-white font-heading font-black text-lg">Balanced</span>
+                                        <span className="text-white font-heading font-black text-lg">Default</span>
                                     </div>
                                 </th>
                                 <th className="py-8 px-6">

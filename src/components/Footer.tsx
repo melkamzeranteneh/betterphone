@@ -71,7 +71,7 @@ export default function Footer() {
                             <span className="text-2xl font-bold tracking-tight text-white font-heading">BetterPhone</span>
                         </div>
                         <p className="text-slate-400 mb-6 leading-relaxed text-[15px]">
-                            A mission-driven company dedicated to protecting the next generation of digital citizens. Designed in collaboration with child psychologists.
+                            A phone designed by child psychologists and parents to protect the next generation. Our mission is to help children thrive in the digital age.
                         </p>
 
                         {/* Online badge */}

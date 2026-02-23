@@ -57,81 +57,42 @@ const LifetimeShape = () => (
 
 const plans = [
     {
-        id: "starter",
-        name: "Starter",
-        badge: null as string | null,
-        description: "Perfect for families just getting started with digital safety.",
-        monthly: 0,
-        annual: 0,
-        price: null as string | null,
-        priceSuffix: "/mo",
-        priceNote: "Free forever",
-        cta: "Get Started Free",
-        isPopular: false,
-        accentColor: "#64748b",
-        ShapeEl: StarterShape,
-        features: [
-            "1 child profile",
-            "Basic content filtering",
-            "Screen time scheduling",
-            "Weekly activity reports",
-            "App blocking (up to 10 apps)",
-        ],
-        notIncluded: [
-            "AI-powered threat detection",
-            "All 4 psychologist modes",
-            "Priority support",
-        ],
-    },
-    {
-        id: "family",
-        name: "Family Plan",
-        badge: "MOST POPULAR" as string | null,
-        description: "For parents who want complete peace of mind for their child online.",
-        monthly: 24.99,
-        annual: 19.99,
-        price: null as string | null,
-        priceSuffix: "/mo",
-        priceNote: "Billed annually",
-        cta: "Start 7-Day Free Trial",
+        id: "preorder",
+        name: "Early Adopter Offer",
+        badge: "LIMITED TIME" as string | null,
+        description: "For our earliest supporters who believe in our mission. Get the BetterPhone at a special price.",
+        price: "$499",
+        priceSuffix: "one-time",
+        priceNote: "+ $24.99/mo for software updates & support",
+        cta: "Pre-Order Now",
         isPopular: true,
         accentColor: "#d4af37",
         ShapeEl: FamilyShape,
         features: [
-            "Up to 3 child profiles",
-            "All 4 psychologist-backed modes",
-            "AI-powered threat detection",
-            "Parent Dashboard (iOS & Android)",
-            "Real-time location & alerts",
-            "Unlimited app blocking",
-            "Monthly safety reports",
-            "Priority support",
+            "Unlocked BetterPhone device",
+            "All protection features included",
+            "Constant software updates & support",
+            "Early access to new features",
+            "Direct line to our development team",
         ],
         notIncluded: [],
     },
     {
-        id: "lifetime",
-        name: "Lifetime Bundle",
-        badge: null as string | null,
-        description: "One-time investment for high-needs families & institutions.",
-        monthly: null as number | null,
-        annual: null as number | null,
-        price: "$499" as string | null,
-        priceSuffix: " one-time",
-        priceNote: "+ $24.99/mo support (waived at launch)",
-        cta: "Pre-Order Now",
+        id: "future",
+        name: "Future Price",
+        badge: null,
+        description: "The standard retail price after the early adopter period ends.",
+        price: "$899",
+        priceSuffix: "one-time",
+        priceNote: "+ $49.99/mo for software updates & support",
+        cta: "Available Later",
         isPopular: false,
-        accentColor: "#6366f1",
-        ShapeEl: LifetimeShape,
+        accentColor: "#64748b",
+        ShapeEl: StarterShape,
         features: [
-            "Unlimited child profiles",
-            "Unlocked device — any carrier",
-            "All 4 psychologist-backed modes",
-            "Parent Dashboard (iOS, Android, Web)",
-            "AI Algorithm Adjuster — free for life",
-            "Natural Language Controls — free for life",
-            "Direct access to founding team",
-            "Priority support for life",
+            "Unlocked BetterPhone device",
+            "All protection features included",
+            "Constant software updates & support",
         ],
         notIncluded: [],
     },
@@ -178,44 +139,20 @@ export default function Pricing() {
                     </div>
 
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-5 font-heading leading-[1.05]">
-                        Plans and Pricing
+                        Pre-Order Your BetterPhone
                     </h2>
                     <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-                        Choose a plan that fits your family's needs. Start giving your child a safer digital life today.
+                        For a limited time, get the BetterPhone for your family at a special early adopter price.
                     </p>
 
                     {/* Billing toggle */}
-                    <div className="inline-flex items-center gap-1 mt-10 p-1 rounded-xl bg-white/5 border border-white/10">
-                        {(["monthly", "annual"] as const).map((b) => (
-                            <button
-                                key={b}
-                                onClick={() => setBilling(b)}
-                                className={`relative px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${billing === b
-                                    ? "bg-white text-black shadow-sm"
-                                    : "text-slate-400 hover:text-white"
-                                    }`}
-                            >
-                                {b === "monthly" ? "Monthly" : "Annual"}
-                                {b === "annual" && (
-                                    <span className="ml-2 text-[9px] font-black uppercase tracking-widest text-primary">
-                                        Save 20%
-                                    </span>
-                                )}
-                            </button>
-                        ))}
-                    </div>
+                    
                 </motion.div>
 
                 {/* ── Cards ─────────────────────────────────────────────── */}
-                <div className="grid gap-5 lg:grid-cols-3 items-stretch">
+                <div className="grid gap-8 lg:grid-cols-2 items-stretch max-w-4xl mx-auto">
                     {plans.map((plan, i) => {
-                        const displayPrice =
-                            plan.price
-                                ? plan.price
-                                : plan.monthly === 0
-                                    ? "$0"
-                                    : `$${billing === "annual" ? plan.annual : plan.monthly}`
-
+                        const displayPrice = plan.price;
                         const { ShapeEl } = plan
 
                         return (
@@ -225,7 +162,7 @@ export default function Pricing() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: i * 0.13 }}
-                                className="relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-500 group hover:-translate-y-1"
+                                className={`relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-500 group hover:-translate-y-1 ${plan.id === 'future' ? 'opacity-50' : ''}`}
                                 style={{
                                     background: "#0d0d0d",
                                     borderColor: plan.isPopular
@@ -270,7 +207,7 @@ export default function Pricing() {
                                     {/* Price */}
                                     <div className="mb-5">
                                         <div className="flex items-baseline gap-1.5">
-                                            <span className="text-5xl font-black text-white tracking-tighter leading-none">
+                                            <span className={`text-5xl font-black text-white tracking-tighter leading-none ${plan.id === 'future' ? 'line-through' : ''}`}>
                                                 {displayPrice}
                                             </span>
                                             <span className="text-slate-500 text-sm font-medium">
@@ -287,7 +224,8 @@ export default function Pricing() {
 
                                     {/* CTA */}
                                     <button
-                                        className="w-full h-11 rounded-xl text-[13px] font-black uppercase tracking-wider transition-all duration-300 mb-7 border"
+                                        disabled={plan.id === 'future'}
+                                        className="w-full h-11 rounded-xl text-[13px] font-black uppercase tracking-wider transition-all duration-300 mb-7 border disabled:opacity-50 disabled:cursor-not-allowed"
                                         style={
                                             plan.isPopular
                                                 ? {
@@ -355,12 +293,12 @@ export default function Pricing() {
                 >
                     <span className="flex items-center gap-2 font-medium">
                         <Lock className="h-3.5 w-3.5" />
-                        Start your journey risk free — no credit card needed
+                        Help us build a better future for our kids.
                     </span>
                     <span className="hidden sm:block text-white/10">|</span>
                     <span className="flex items-center gap-2 font-medium">
                         <ShieldCheck className="h-3.5 w-3.5" />
-                        30-day satisfaction guarantee · Full refund if not happy
+                        Fill out our 10-min survey for a $100 gift card.
                     </span>
                 </motion.div>
             </div>

@@ -53,60 +53,60 @@ const PhoneExplorer = () => {
                 className="relative w-[300px] h-[600px] bg-[#080808] rounded-[3.5rem] border-[8px] border-[#1a1a1a] shadow-[0_50px_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)]"
             >
                 {/* Screen Content - White Mode */}
-                <div className="absolute inset-1 rounded-[3.1rem] overflow-hidden bg-white">
-                    <div className="w-full h-full flex flex-col p-8 pt-12 relative">
+                <div className="absolute inset-1 rounded-[3.1rem] overflow-hidden bg-slate-50">
+                    <div className="w-full h-full flex flex-col p-6 pt-10 relative">
 
                         {/* Status Bar */}
-                        <div className="flex justify-between items-center px-2 mb-10">
-                            <span className="text-black font-bold text-[13px]">9:41</span>
-                            <div className="flex items-center gap-1.5 grayscale opacity-60">
-                                <Activity className="w-3.5 h-3.5" />
-                                <Globe className="w-3.5 h-3.5" />
-                                <div className="w-5 h-2.5 rounded-[3px] border border-black/20 relative">
-                                    <div className="absolute left-[1px] top-[1px] bottom-[1px] right-2 bg-black rounded-[1px]" />
+                        <div className="flex justify-between items-center px-3 mb-8">
+                            <span className="text-slate-900 font-bold text-[13px]">9:41</span>
+                            <div className="flex items-center gap-1.5 opacity-70">
+                                <Activity className="w-3.5 h-3.5 text-slate-900" />
+                                <Globe className="w-3.5 h-3.5 text-slate-900" />
+                                <div className="w-5 h-2.5 rounded-[3px] border border-slate-900/50 relative">
+                                    <div className="absolute left-[1px] top-[1px] bottom-[1px] right-2 bg-slate-900 rounded-[1px]" />
                                 </div>
                             </div>
                         </div>
 
                         {/* Date Content */}
-                        <div className="mb-16">
-                            <h2 className="text-[42px] font-black text-black leading-[1] font-heading">
+                        <div className="mb-12 px-2">
+                            <h2 className="text-[48px] font-black text-slate-900 leading-[1] font-heading">
                                 Thursday<br />24
                             </h2>
                         </div>
 
                         {/* App Grid (2x3) */}
-                        <div className="grid grid-cols-3 gap-y-10 gap-x-4 px-2">
+                        <div className="grid grid-cols-3 gap-y-8 gap-x-5 px-2">
                             {[
-                                { name: "Phone", color: "bg-[#4ade80]", icon: <Zap className="w-6 h-6 text-white" /> },
-                                { name: "Messages", color: "bg-[#22c55e]", icon: <Activity className="w-6 h-6 text-white" /> },
-                                { name: "Calc", color: "bg-[#94a3b8]", icon: <Cpu className="w-6 h-6 text-white" /> },
-                                { name: "Maps", color: "bg-white border border-black/5", icon: <Globe className="w-6 h-6 text-blue-500" /> },
-                                { name: "Spotify", color: "bg-[#1db954]", icon: <Sparkles className="w-6 h-6 text-white" /> },
-                                { name: "Notion", color: "bg-black", icon: <div className="text-white font-black text-lg italic">N</div> },
+                                { name: "Phone", icon: <Zap className="w-6 h-6" /> },
+                                { name: "Messages", icon: <Activity className="w-6 h-6" /> },
+                                { name: "Calculator", icon: <Cpu className="w-6 h-6" /> },
+                                { name: "Camera", icon: <Camera className="w-6 h-6" /> },
+                                { name: "Music", icon: <Sparkles className="w-6 h-6" /> },
+                                { name: "Notes", icon: <div className="font-black text-lg italic">N</div> },
                             ].map((app, i) => (
-                                <div key={i} className="flex flex-col items-center gap-2">
-                                    <div className={`w-14 h-14 rounded-2xl ${app.color} flex items-center justify-center shadow-lg shadow-black/5`}>
+                                <div key={i} className="flex flex-col items-center gap-2.5">
+                                    <div className={`w-16 h-16 rounded-2xl bg-slate-200/80 border border-slate-900/10 flex items-center justify-center shadow-lg shadow-black/5 text-slate-900/70`}>
                                         {app.icon}
                                     </div>
-                                    <span className="text-[10px] font-bold text-black/40">{app.name}</span>
+                                    <span className="text-[11px] font-bold text-slate-900/40">{app.name}</span>
                                 </div>
                             ))}
                         </div>
 
                         {/* Dynamic Island Pill */}
-                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40 flex items-center justify-end px-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 opacity-40" />
+                        <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40 flex items-center justify-end px-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-60" />
                         </div>
 
                         {/* Page Indicator */}
-                        <div className="mt-auto mb-8 flex items-center justify-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-black/80" />
-                            <div className="w-1.5 h-1.5 rounded-full bg-black/20" />
+                        <div className="mt-auto mb-6 flex items-center justify-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-slate-900/80" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-slate-900/20" />
                         </div>
 
                         {/* Home Bar */}
-                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full" />
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-900/20 rounded-full" />
                     </div>
                 </div>
 
@@ -292,12 +292,11 @@ export default function Hero() {
                             transition={{ duration: 0.6 }}
                         >
                             <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white mb-6 leading-[0.95] font-heading">
-                                Clarity in a complex <br />
-                                <span className="text-primary">digital economy.</span>
+                                A phone designed <br />
+                                <span className="text-primary">to protect children.</span>
                             </h1>
                             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mb-10 mx-auto lg:mx-0 font-medium">
-                                BetterPhone isn't just a device; it's an interaction layer designed around
-                                human focus. We replace addictive loops with meaningful engagement.
+                                Designed with child psychologists and parents, BetterPhone has industry-leading safety features built-in by default. Finally, a phone that helps your child thrive and gives you peace of mind.
                             </p>
                             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
                                 <button className="luxury-button luxury-button-gold px-8 py-4 !h-14">

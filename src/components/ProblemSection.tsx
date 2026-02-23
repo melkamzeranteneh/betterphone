@@ -2,12 +2,12 @@ import { AlertCircle, Moon, Users, ShieldAlert, Brain, ShieldX, ArrowRight } fro
 import { motion } from "framer-motion"
 
 const problems = [
-    { title: "Addictive Algorithm Design", icon: Brain },
-    { title: "Sleep Disruption", icon: Moon },
-    { title: "Cyberbullying", icon: Users },
-    { title: "Harmful Content Exposure", icon: ShieldAlert },
-    { title: "AI Accelerating Risks", icon: AlertCircle },
-    { title: "Complex Parental Controls", icon: ShieldX },
+    { title: "Phone & Social Media Addiction", icon: Brain },
+    { title: "Poor Sleep & Mental Health", icon: Moon },
+    { title: "Cyberbullying & Online Predators", icon: Users },
+    { title: "Harmful & Inappropriate Content", icon: ShieldAlert },
+    { title: "Distractions from Real Life", icon: AlertCircle },
+    { title: "Future AI-driven Problems", icon: ShieldX },
 ]
 
 export default function ProblemSection() {
@@ -26,7 +26,7 @@ export default function ProblemSection() {
                         className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6"
                     >
                         <ShieldAlert className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Systemic Crisis</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">The Digital Dangers</span>
                     </motion.div>
 
                     <motion.h2
@@ -36,12 +36,12 @@ export default function ProblemSection() {
                         transition={{ duration: 0.8 }}
                         className="text-4xl md:text-6xl font-black tracking-tight text-white mb-8 font-heading leading-tight"
                     >
-                        Modern Smartphones <br />
-                        <span className="text-primary/60">Weren’t Built for Kids.</span>
+                        Today's Phones Weren't<br />
+                        <span className="text-primary/60">Designed to Protect Kids.</span>
                     </motion.h2>
 
                     <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-16 font-medium">
-                        Standard OS architectures are designed for maximum retention and data extraction. They are tools of the attention economy, not childhood development.
+                        Big tech business models depend on addiction, selling attention, and keeping users hooked. BetterPhone is built from the ground up to protect your child from these ever-evolving digital threats.
                     </p>
 
                     <motion.div
@@ -73,10 +73,10 @@ export default function ProblemSection() {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
                     <h3 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 font-heading">
-                        BetterPhone changes the foundation.
+                        BetterPhone is the solution.
                     </h3>
                     <p className="text-xl text-slate-400 font-medium mb-16 max-w-2xl mx-auto">
-                        We don't just "add" parental controls.<br className="hidden sm:block" /> We redesigned the interaction layer from scratch.
+                        All the best safety features are built-in by default. No setup required.
                     </p>
 
                     <div className="grid md:grid-cols-3 gap-8 relative">
@@ -84,9 +84,9 @@ export default function ProblemSection() {
                         <div className="hidden md:block absolute top-[22px] left-[15%] right-[15%] h-[1px] bg-white/10 z-0" />
 
                         {[
-                            { step: "1", title: "Select Device", desc: "Choose hardware tailored for focus." },
-                            { step: "2", title: "Smart Config", desc: "Automated modes based on age." },
-                            { step: "3", title: "Active Safety", desc: "Real-time semantic protection." }
+                            { step: "1", title: "Buy BetterPhone", desc: "Order your phone. That's it." },
+                            { step: "2", title: "Give to Your Child", desc: "All protections are on by default." },
+                            { step: "3", title: "Customize (Optional)", desc: "Use the parent app to adjust settings." }
                         ].map((item, index) => (
                             <div key={index} className="relative z-10 flex flex-col items-center gap-6">
                                 <div className="h-11 w-11 rounded-full border border-primary/30 bg-[#0d0d0d] flex items-center justify-center text-sm font-black text-primary shadow-[0_0_20px_rgba(212,175,55,0.2)]">

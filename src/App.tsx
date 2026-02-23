@@ -8,8 +8,6 @@ import ModeVisualizer from "./components/ModeVisualizer"
 import ModeComparison from "./components/ModeComparison"
 import DashboardDemo from "./components/DashboardDemo"
 import ProtectionTimeline from "./components/ProtectionTimeline"
-import ThreatSimulator from "./components/ThreatSimulator"
-import PricingBuilder from "./components/PricingBuilder"
 import Pricing from "./components/Pricing"
 import FAQ from "./components/FAQ"
 import Testimonials from "./components/Testimonials"
@@ -30,8 +28,6 @@ function App() {
           <ModeComparison />
           <DashboardDemo />
           <ProtectionTimeline />
-          <ThreatSimulator />
-          <PricingBuilder />
           <Pricing />
           <FAQ />
           <Testimonials />

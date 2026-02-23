@@ -81,21 +81,20 @@ export default function ModeVisualizer() {
                                     max="100"
                                     step="1"
                                     value={sliderValue}
-                                    onChange={(e) => setSliderValue(parseInt(e.target.value))}
+                                    onInput={(e) => setSliderValue(parseInt(e.currentTarget.value))}
                                     className="absolute inset-0 w-full h-full bg-transparent appearance-none cursor-pointer z-10 accent-transparent"
+                                    style={{ WebkitAppearance: 'none', appearance: 'none' }}
                                 />
-                                <motion.div
-                                    className="absolute top-0 left-0 h-full bg-primary rounded-full"
-                                    animate={{ width: `${sliderValue}%` }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                <div
+                                    className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-100"
+                                    style={{ width: `${sliderValue}%` }}
                                 />
-                                <motion.div
-                                    animate={{ left: `${sliderValue}%` }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    className="absolute top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 rounded-full bg-white border-[6px] border-[#030303] shadow-[0_0_20px_rgba(212,175,55,0.4)] pointer-events-none flex items-center justify-center border-solid"
+                                <div
+                                    className="absolute top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 rounded-full bg-white border-[6px] border-[#030303] shadow-[0_0_20px_rgba(212,175,55,0.4)] pointer-events-none flex items-center justify-center border-solid transition-all duration-100"
+                                    style={{ left: `${sliderValue}%` }}
                                 >
                                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                </motion.div>
+                                </div>
                             </div>
                         </div>
 

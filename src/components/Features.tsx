@@ -130,61 +130,61 @@ const AutoShutoffShape = () => (
 const features = [
     {
         id: "modes",
-        title: "4 Guarded Modes",
+        title: "4 Protection Modes",
         tag: "Protection",
         tagColor: "#d4af37",
-        description: "Switch between Relaxed, Default (Psychologist recommended), Strict, and Custom to match your child's developmental stage.",
-        bullets: ["Default mode designed by psychologists", "Custom rules per child", "One-tap mode switching"],
+        description: "Switch between Relaxed, Default (recommended by child psychologists), Strict, and Custom to match your child's needs.",
+        bullets: ["Default mode designed by experts", "Customize every feature from your phone", "One-tap mode switching"],
         ShapeEl: FourModesShape,
         size: "lg", // spans 2 cols on lg
     },
     {
         id: "ai",
-        title: "AI Content Filter",
+        title: "AI-Powered Safety",
         tag: "AI",
         tagColor: "#6366f1",
-        description: "Deep-level algorithm adjustment prevents toxic content before it reaches the screen.",
-        bullets: ["Real-time threat scanning", "Pattern-based prediction", "Zero false-positive design"],
+        description: "Our AI adjusts social media algorithms to favor educational content and blocks harmful content, creators, and accounts.",
+        bullets: ["Adjusts social media algorithms", "Blocks harmful content & creators", "Filters inappropriate content in real-time"],
         ShapeEl: AIFilterShape,
         size: "sm",
     },
     {
         id: "lockout",
-        title: "One-Tap Lockout",
+        title: "One-Tap Shutoff",
         tag: "Control",
         tagColor: "#22c55e",
-        description: "Instant remote shutoff from your own phone. Perfect for family dinner or bedtime.",
-        bullets: ["Locks in under 1 second", "Works globally over the network", "Scheduled auto-lockouts"],
+        description: "Instantly turn off your child's phone from your own device. Perfect for dinner time, homework, or being present.",
+        bullets: ["Remotely disable the phone instantly", "Works anytime, anywhere", "Scheduled auto-lockouts for focus"],
         ShapeEl: LockoutShape,
         size: "sm",
     },
     {
         id: "insights",
-        title: "Usage Insights",
+        title: "Usage Insights & Recs",
         tag: "Analytics",
         tagColor: "#3b82f6",
-        description: "Weekly AI-generated reports on digital health, habit trends, and personalized parenting recommendations.",
-        bullets: ["Weekly summaries emailed to you", "App usage breakdowns", "AI-backed habit insights"],
+        description: "See how your child spends their time on their phone and get recommendations from our team of experts.",
+        bullets: ["See time spent on apps", "Understand digital habits", "Get expert recommendations"],
         ShapeEl: InsightsShape,
         size: "sm",
     },
     {
         id: "assistant",
-        title: "Natural Language Controls",
+        title: "Parenting Assistant",
         tag: "Assistant",
         tagColor: "#a855f7",
-        description: "Talk to your parent dashboard to suggest new rules or adjust schedules using plain language.",
-        bullets: ["\"Block TikTok after 8pm\"", "\"Allow games on weekends only\"", "Instant rule creation"],
+        description: "Use natural language in our parent app to control your child's phone, set schedules, and get feedback.",
+        bullets: ["\"Turn off the phone for dinner\"", "\"Only allow educational apps during homework\"", "Suggest new features directly to us"],
         ShapeEl: AssistantShape,
         size: "lg",
     },
     {
         id: "shutoff",
-        title: "Auto-Shutoff",
+        title: "Sleep Schedule",
         tag: "Sleep",
         tagColor: "#f59e0b",
-        description: "Customizable sleep schedules that turn the phone into a simple alarm clock at bedtime.",
-        bullets: ["Blocks all apps at bedtime", "Still rings as alarm clock", "Gradual wind-down warnings"],
+        description: "Automatically turns the phone off at bedtime to protect your child's sleep. The phone still works as an alarm clock.",
+        bullets: ["Turns off automatically at bedtime", "Protects against blue light effects", "Ensures healthy sleep habits"],
         ShapeEl: AutoShutoffShape,
         size: "sm",
     },
@@ -227,11 +227,11 @@ export default function Features() {
                         Feature Suite
                     </div>
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white font-heading leading-[1.05] mb-5">
-                        Total Control.<br className="hidden md:block" />
-                        <span className="text-primary italic"> Zero Friction.</span>
+                        Complete Protection.<br className="hidden md:block" />
+                        <span className="text-primary italic"> Total Peace of Mind.</span>
                     </h2>
                     <p className="text-slate-400 text-lg max-w-xl leading-relaxed">
-                        BetterPhone isn't just a device — it's a comprehensive safety ecosystem, managed from a powerful parent dashboard.
+                        BetterPhone comes with everything you need to protect your kids, pre-installed and ready to go. No setup required.
                     </p>
                 </motion.div>
 
