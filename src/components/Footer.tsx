@@ -1,4 +1,4 @@
-import { ShieldCheck } from "lucide-react"
+
 
 // ── Filled SVG icons ──────────────────────────────────────────────────────────
 const WhatsAppIcon = () => (
@@ -65,8 +65,8 @@ export default function Footer() {
                     {/* ── Brand Column ──────────────────────────── */}
                     <div className="col-span-1">
                         <div className="flex items-center gap-2 mb-6">
-                            <div className="creamy-icon-wrapper h-10 w-10">
-                                <ShieldCheck className="h-6 w-6" />
+                            <div className="h-10 w-10 flex items-center justify-center">
+                                <img src="/logo.svg" alt="BetterPhone Logo" className="w-full h-full" />
                             </div>
                             <span className="text-2xl font-bold tracking-tight text-white font-heading">BetterPhone</span>
                         </div>

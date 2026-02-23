@@ -47,8 +47,8 @@ export default function Navbar() {
                 }`}>
                 {/* Left: Logo */}
                 <a href="#" className="flex items-center gap-3 cursor-pointer group hover:scale-105 transition-transform">
-                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-black font-black shadow-[0_0_20px_rgba(212,175,55,0.3)] group-hover:rotate-12 transition-transform">
-                        BP
+                    <div className="w-10 h-10 flex items-center justify-center group-hover:rotate-12 transition-transform">
+                        <img src="/logo.svg" alt="BetterPhone Logo" className="w-full h-full" />
                     </div>
                     <span className="text-white font-black tracking-tighter text-xl font-heading">
                         Better<span className="text-primary">Phone</span>
