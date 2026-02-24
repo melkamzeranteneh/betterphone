@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Bell, BellOff, Moon, Sun, UserCheck, ShieldCheck, Ghost } from "lucide-react"
+import { Bell, BellOff, Moon, Sun, UserCheck, ShieldCheck, Ghost, type LucideIcon } from "lucide-react"
 
 export default function PhoneComparison() {
     const [view, setView] = useState<"standard" | "better">("better")
@@ -163,7 +163,15 @@ export default function PhoneComparison() {
     )
 }
 
-function ComparisonCard({ icon: Icon, title, desc, color, accent }: any) {
+type ComparisonCardProps = {
+    icon: LucideIcon
+    title: string
+    desc: string
+    color: string
+    accent: string
+}
+
+function ComparisonCard({ icon: Icon, title, desc, color, accent }: ComparisonCardProps) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}

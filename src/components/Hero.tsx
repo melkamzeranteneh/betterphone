@@ -37,7 +37,6 @@ const PhoneExplorer = () => {
     const hotspots = [
         { id: "camera", label: "Optical Guard", icon: Camera, top: "12%", left: "85%", description: "Neural-engine powered content filtering at the lens level." },
         { id: "security", label: "Bio-Lock", icon: Fingerprint, top: "85%", left: "50%", description: "Hardware-level parental bypass with encrypted biometric keys." },
-        { id: "interface", label: "Calm OS", icon: Zap, top: "45%", left: "15%", description: "Dopamine-neutral UI designed to prevent endless scrolling." },
     ]
 
     return (
@@ -270,17 +269,17 @@ const RedLayers = () => (
 )
 
 const CARDS = [
-    { title: "Age Simulator", desc: "Instantly preview recommended modes and screen limits tailored to your child's age.", Icon: Cpu, Shape: GreenCubes, delay: 0.1 },
-    { title: "Mode Visualizer", desc: "Compare Strict vs Relaxed modes with live UI feedback and impact analysis.", Icon: Shield, Shape: PurplePills, delay: 0.2 },
-    { title: "3D Explorer", desc: "Deep-dive hardware reveal experience. See the craftsmanship up close.", Icon: Sparkles, Shape: BluePanels, delay: 0.3 },
-    { title: "Activity Insights", desc: "Monitor usage patterns without invading privacy through semantic reports.", Icon: Activity, Shape: PurpleBlocks, delay: 0.4 },
-    { title: "Smart Guardrails", desc: "AI filtering that adapts to content volume and evolving digital threats.", Icon: Globe, Shape: YellowPyramid, delay: 0.5 },
-    { title: "Real-time Control", desc: "Pause phone or adjust curfews instantly across a scrolling timeline.", Icon: Clock, Shape: RedLayers, delay: 0.6 }
+    { title: "Psychologist-Built Defaults", desc: "Relaxed, Default, Strict, or Custom—four modes crafted with clinicians and parents to match your child’s stage.", Icon: Cpu, Shape: GreenCubes, delay: 0.1 },
+    { title: "All Protections On Day One", desc: "Arrives pre-set to block addiction loops, harmful content, predators, cyberbullying, and sleep disruptors—no setup required.", Icon: Shield, Shape: PurplePills, delay: 0.2 },
+    { title: "Parent App = Master Key", desc: "From your phone, one tap to pause, set curfews, adjust AI filters, or change modes instantly anywhere.", Icon: Clock, Shape: RedLayers, delay: 0.3 },
+    { title: "AI Threat Filter", desc: "Continuously learns to block new trends, bad actors, and inappropriate content across apps, games, and web.", Icon: Globe, Shape: YellowPyramid, delay: 0.4 },
+    { title: "Healthy Mind & Sleep", desc: "Built-in dopamine brakes, calm UI, and auto sleep schedules reduce anxiety, distraction, and late-night scrolling.", Icon: Activity, Shape: PurpleBlocks, delay: 0.5 },
+    { title: "See & Guide Usage", desc: "Clear, privacy-first insights and recs: what they use, time spent, and helpful nudges to build real-world skills.", Icon: Sparkles, Shape: BluePanels, delay: 0.6 }
 ]
 
 export default function Hero() {
     return (
-        <section className="bg-background pt-24 pb-24 font-sans border-b border-white/[0.05]">
+        <section id="hero" className="bg-background pt-24 pb-24 font-sans border-b border-white/[0.05]">
             <div className="max-w-[1200px] mx-auto px-6">
 
                 <div className="flex flex-col lg:flex-row items-center gap-12 mb-24">
@@ -291,18 +290,32 @@ export default function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white mb-6 leading-[0.95] font-heading">
+                            <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white mb-6 leading-[0.95] font-heading relative inline-block">
                                 A phone designed <br />
-                                <span className="text-primary">to protect children.</span>
+                                <span className="relative inline-block">
+                                    <span className="text-primary relative z-10">to protect children.</span>
+                                </span>
                             </h1>
                             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mb-10 mx-auto lg:mx-0 font-medium">
                                 Designed with child psychologists and parents, BetterPhone has industry-leading safety features built-in by default. Finally, a phone that helps your child thrive and gives you peace of mind.
                             </p>
                             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                                <button className="luxury-button luxury-button-gold px-8 py-4 !h-14">
+                                <button
+                                    className="luxury-button luxury-button-gold px-8 py-4 !h-14"
+                                    onClick={() => {
+                                        const el = document.getElementById('payment') || document.getElementById('pricing');
+                                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }}
+                                >
                                     Pre-order Now
                                 </button>
-                                <button className="luxury-button luxury-button-outline px-8 py-4 !h-14">
+                                <button
+                                    className="luxury-button luxury-button-outline px-8 py-4 !h-14"
+                                    onClick={() => {
+                                        const el = document.getElementById('payment') || document.getElementById('pricing');
+                                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }}
+                                >
                                     Compare Modes
                                 </button>
                             </div>

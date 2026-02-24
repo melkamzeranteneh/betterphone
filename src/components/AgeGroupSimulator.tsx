@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Check, ShieldCheck, Clock, MapPin, Smartphone, AlertTriangle, Battery, Signal } from "lucide-react"
+import { Check, Shield, Activity, Globe, Clock, Smartphone, AlertTriangle } from "lucide-react"
 
 const AGE_DATA = {
     "6-9": {
@@ -32,6 +32,47 @@ const AGE_DATA = {
 export default function AgeGroupSimulator() {
     const [selectedAge, setSelectedAge] = useState<keyof typeof AGE_DATA>("10-13")
     const data = AGE_DATA[selectedAge]
+    const MODE_OPTIONS = {
+        relaxed: {
+            title: "Relaxed Mode",
+            desc: "For older, responsible kids with light guardrails.",
+            icon: Globe,
+            accent: "text-emerald-400",
+            badge: "Trusted Access",
+            highlights: ["Wider app access", "Filtered browser", "Privacy alerts", "Self-regulated"],
+            apps: ["Phone", "Messages", "Music", "Maps", "All Apps"]
+        },
+        default: {
+            title: "Default Mode",
+            desc: "Recommended by our team of child psychologists and our parent community.",
+            icon: Activity,
+            accent: "text-amber-400",
+            badge: "Psychologist Recommended",
+            highlights: ["Safe search", "Curated apps", "School schedule", "Usage summaries"],
+            apps: ["Phone", "Messages", "Music", "Maps", "Notes"]
+        },
+        strict: {
+            title: "Strict Mode",
+            desc: "For younger children or those most at risk.",
+            icon: Shield,
+            accent: "text-red-400",
+            badge: "Maximum Protection",
+            highlights: ["No social media", "No browser access", "Essential apps only", "Automatic bedtime"],
+            apps: ["Phone", "Messages", "Music", "Maps"]
+        },
+        custom: {
+            title: "Custom Mode",
+            desc: "Start from a base mode and adjust every protection from your phone.",
+            icon: Smartphone,
+            accent: "text-blue-400",
+            badge: "Fully Adjustable",
+            highlights: ["Per-app controls", "Granular filters", "Curfew rules", "Family presets"],
+            apps: ["Pick your own", "Browser rules", "Social limits", "Custom groups"]
+        }
+    } as const
+
+    const [selectedMode, setSelectedMode] = useState<keyof typeof MODE_OPTIONS>('default')
+    const modeInfo = MODE_OPTIONS[selectedMode]
 
     return (
         <section id="age-selector" className="py-32 bg-[#030303] border-b border-white/[0.05] relative overflow-hidden">
@@ -73,6 +114,27 @@ export default function AgeGroupSimulator() {
                             Ages {group}
                         </button>
                     ))}
+                </div>
+
+                {/* Mode Selector */}
+                <div className="flex justify-center flex-wrap gap-3 mb-8">
+                    {(Object.keys(MODE_OPTIONS) as Array<keyof typeof MODE_OPTIONS>).map((m) => (
+                        <button
+                            key={m}
+                            onClick={() => setSelectedMode(m)}
+                            className={`px-6 py-3 rounded-full text-xs font-black uppercase tracking-[0.12em] transition-all duration-300 border-2 ${selectedMode === m
+                                ? "bg-primary text-black border-primary shadow-[0_0_30px_rgba(212,175,55,0.18)]"
+                                : "bg-[#0d0d0d] text-slate-500 border-white/5 hover:border-white/20 hover:text-white"
+                                }`}
+                        >
+                            {MODE_OPTIONS[m].title}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Mode Description */}
+                <div className="text-center mb-12">
+                    <p className="text-slate-400 text-sm max-w-3xl mx-auto font-medium">{modeInfo.desc}</p>
                 </div>
 
                 {/* Dynamic Content */}
@@ -128,84 +190,44 @@ export default function AgeGroupSimulator() {
                         </motion.div>
                     </AnimatePresence>
 
-                    {/* Mock Dashboard View - iPhone Style */}
-                    <div className="perspective-1000">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={selectedAge + "-mock"}
-                                initial={{ opacity: 0, x: 40, rotateY: -10 }}
-                                animate={{ opacity: 1, x: 0, rotateY: -10 }}
-                                exit={{ opacity: 0, x: -40, rotateY: -10 }}
-                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                className="relative w-[300px] h-[600px] mx-auto bg-[#080808] rounded-[3.5rem] border-[8px] border-[#1a1a1a] shadow-[0_60px_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] overflow-hidden"
-                            >
-                                {/* Screen Content - White Mode UI */}
-                                <div className="absolute inset-1 rounded-[3.1rem] overflow-hidden bg-white">
-                                    <div className="w-full h-full flex flex-col p-8 pt-12 relative font-sans">
-                                        {/* Status Bar */}
-                                        <div className="flex justify-between items-center px-1 mb-10">
-                                            <span className="text-black font-bold text-[12px]">9:41</span>
-                                            <div className="flex gap-1.5 items-center grayscale opacity-40">
-                                                <Battery className="w-3 h-3 text-black" />
-                                                <Signal className="w-3 h-3 text-black" />
-                                            </div>
-                                        </div>
-
-                                        {/* Dynamic Island Pill */}
-                                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40" />
-
-                                        <div className="flex justify-between items-center mb-8">
-                                            <div className="p-2.5 rounded-2xl bg-primary/10 border border-primary/20">
-                                                <ShieldCheck className="w-5 h-5 text-primary" />
-                                            </div>
-                                            <div className="text-[9px] font-black tracking-[0.2em] text-black/30 uppercase">Parental Insights</div>
-                                        </div>
-
-                                        <div className="space-y-6">
-                                            <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 shadow-sm">
-                                                <div className="flex justify-between mb-4">
-                                                    <span className="text-black/40 text-[10px] font-black uppercase tracking-widest">Daily Focus</span>
-                                                    <span className="text-black font-black text-[10px]">42m / {data.limits.split(' ')[0]}</span>
-                                                </div>
-                                                <div className="w-full h-2 bg-black/[0.06] rounded-full overflow-hidden">
-                                                    <motion.div
-                                                        initial={{ width: 0 }}
-                                                        animate={{ width: "40%" }}
-                                                        className="h-full bg-primary"
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col items-center gap-3 shadow-sm">
-                                                    <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
-                                                        <MapPin className="w-5 h-5 text-emerald-500" />
-                                                    </div>
-                                                    <span className="text-[8px] font-black uppercase tracking-widest text-black/20">Location</span>
-                                                    <span className="text-black text-[10px] font-black uppercase">Verified</span>
-                                                </div>
-                                                <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col items-center gap-3 shadow-sm">
-                                                    <div className="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center">
-                                                        <Smartphone className="w-5 h-5 text-blue-500" />
-                                                    </div>
-                                                    <span className="text-[8px] font-black uppercase tracking-widest text-black/20">Guardrails</span>
-                                                    <span className="text-black text-[10px] font-black uppercase">Active</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="p-6 rounded-[2rem] bg-primary/[0.03] border border-primary/10 text-center">
-                                                <p className="text-black font-bold text-xs leading-relaxed">
-                                                    {data.dashboard}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Home Bar */}
-                                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-black/10 rounded-full" />
-                                    </div>
+                    {/* Mode Snapshot */}
+                    <div className="flex-1 w-full">
+                        <div className="max-w-md mx-auto rounded-[2.5rem] bg-[#0d0d0d] border border-white/5 p-8 shadow-2xl">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-10 h-10 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                                    <modeInfo.icon className="w-5 h-5 text-primary" />
                                 </div>
-                            </motion.div>
-                        </AnimatePresence>
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Mode Snapshot</p>
+                                    <p className="text-white font-bold text-lg">{modeInfo.title}</p>
+                                </div>
+                            </div>
+
+                            <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${modeInfo.accent}`}>{modeInfo.badge}</p>
+                            <p className="text-slate-400 text-sm leading-relaxed mt-3">{modeInfo.desc}</p>
+
+                            <div className="grid grid-cols-1 gap-3 mt-6">
+                                {modeInfo.highlights.map((item) => (
+                                    <div key={item} className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/[0.04]">
+                                        <div className="w-6 h-6 rounded-lg bg-primary/10 flex items-center justify-center">
+                                            <Check className="w-3.5 h-3.5 text-primary" />
+                                        </div>
+                                        <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="bg-black/30 rounded-2xl p-5 mt-6">
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-3">App Access</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {modeInfo.apps.map((app) => (
+                                        <span key={app} className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] bg-white/5 text-slate-300">
+                                            {app}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

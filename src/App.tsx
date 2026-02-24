@@ -4,7 +4,6 @@ import Hero from "./components/Hero"
 import ProblemSection from "./components/ProblemSection"
 import PhoneComparison from "./components/PhoneComparison"
 import AgeGroupSimulator from "./components/AgeGroupSimulator"
-import ModeVisualizer from "./components/ModeVisualizer"
 import ModeComparison from "./components/ModeComparison"
 import DashboardDemo from "./components/DashboardDemo"
 import ProtectionTimeline from "./components/ProtectionTimeline"
@@ -24,7 +23,6 @@ function App() {
           <ProblemSection />
           <PhoneComparison />
           <AgeGroupSimulator />
-          <ModeVisualizer />
           <ModeComparison />
           <DashboardDemo />
           <ProtectionTimeline />

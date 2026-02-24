@@ -4,7 +4,7 @@ import { motion, useScroll, useSpring } from "framer-motion"
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false)
-    const [activeSection, setActiveSection] = useState("home")
+    const [activeSection, setActiveSection] = useState("hero")
     const { scrollYProgress } = useScroll()
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -16,29 +16,39 @@ export default function Navbar() {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20)
 
-            // Basic active section detection
-            const sections = ["features", "age-selector", "mode-visualizer", "pricing-builder"]
+            // Find the section whose center is closest to the viewport center
+            const sections = ["hero", "age-selector", "pricing", "faq", "testimonials"]
+            let closestSection = sections[0];
+            let minDistance = Infinity;
+            const viewportCenter = window.innerHeight / 2;
             for (const section of sections) {
-                const element = document.getElementById(section)
+                const element = document.getElementById(section);
                 if (element) {
-                    const rect = element.getBoundingClientRect()
-                    if (rect.top >= 0 && rect.top <= 300) {
-                        setActiveSection(section)
-                        break
+                    const rect = element.getBoundingClientRect();
+                    const sectionCenter = rect.top + rect.height / 2;
+                    const distance = Math.abs(sectionCenter - viewportCenter);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestSection = section;
                     }
                 }
             }
-        }
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+            setActiveSection(closestSection);
+        };
+        window.addEventListener("scroll", handleScroll);
+        // Run on mount to set initial state
+        handleScroll();
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
+    const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+    
     const navLinks = [
-        { name: "Simulation", href: "#age-selector" },
-        { name: "Modes", href: "#mode-visualizer" },
-        { name: "Evolution", href: "#threats" },
-        { name: "Family Plan", href: "#pricing-builder" },
-        { name: "FAQ", href: "#faq" }
+        { name: "Home", href: "#hero" },
+        { name: "Mode details", href: "#age-selector" },
+        { name: "Pricing", href: "#pricing" },
+        { name: "FAQ", href: "#faq" },
+        { name: "Testimonials", href: "#testimonials"},
     ]
 
     return (
@@ -57,23 +67,39 @@ export default function Navbar() {
 
                 {/* Center: Main Nav */}
                 <div className="hidden lg:flex items-center gap-6">
-                    {navLinks.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative py-1 group ${activeSection === link.href.replace("#", "") ? "text-white" : "text-white/40 hover:text-white"
-                                }`}
-                        >
-                            {link.name}
-                            <span className={`absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-300 ${activeSection === link.href.replace("#", "") ? "w-full" : "w-0 group-hover:w-full"
-                                }`} />
-                        </a>
-                    ))}
+                    {navLinks.map((link) => {
+                        const sectionId = link.href.replace("#", "")
+                        const isActive = activeSection === sectionId
+                        const isHovered = hoveredLink === link.name
+                        return (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                onMouseEnter={() => setHoveredLink(link.name)}
+                                onMouseLeave={() => setHoveredLink(null)}
+                                className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative py-1 ${isActive ? "text-white" : "text-white/40 hover:text-white"}`}
+                            >
+                                {link.name}
+                                <motion.span
+                                    className="absolute bottom-0 left-0 h-[2px] bg-primary rounded-full"
+                                    animate={{ width: (isActive || isHovered) ? '100%' : '0%' }}
+                                    transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+                                    style={{ display: 'block' }}
+                                />
+                            </a>
+                        )
+                    })}
                 </div>
 
                 {/* Right: Actions */}
                 <div className="flex items-center gap-4">
-                    <button className="hidden sm:flex luxury-button luxury-button-gold !h-9 !px-6 !text-[9px] !rounded-xl">
+                    <button
+                        className="hidden sm:flex luxury-button luxury-button-gold !h-9 !px-6 !text-[9px] !rounded-xl"
+                        onClick={() => {
+                            const el = document.getElementById('payment') || document.getElementById('pricing')
+                            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                        }}
+                    >
                         Pre-order Now
                     </button>
                     {/* Mobile Menu */}

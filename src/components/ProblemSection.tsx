@@ -1,4 +1,4 @@
-import { AlertCircle, Moon, Users, ShieldAlert, Brain, ShieldX, ArrowRight } from "lucide-react"
+import { AlertCircle, Moon, Users, ShieldAlert, Brain, ShieldX} from "lucide-react"
 import { motion } from "framer-motion"
 
 const problems = [
@@ -100,12 +100,6 @@ export default function ProblemSection() {
                         ))}
                     </div>
 
-                    <div className="mt-20">
-                        <button className="luxury-button luxury-button-gold px-10">
-                            See the Transformation
-                            <ArrowRight className="w-4 h-4 ml-2 inline" />
-                        </button>
-                    </div>
                 </motion.div>
             </div>
         </section>

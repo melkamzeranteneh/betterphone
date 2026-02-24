@@ -270,7 +270,7 @@ export default function Pricing() {
                 >
                     <span className="flex items-center gap-2 font-medium">
                         <Lock className="h-3.5 w-3.5" />
-                        Help us build a better future for our kids.
+                        +$24.99/mo for updates & support; waived when BetterPhone Wireless launches.
                     </span>
                     <span className="hidden sm:block text-white/10">|</span>
                     <span className="flex items-center gap-2 font-medium">

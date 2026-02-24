@@ -1,201 +1,186 @@
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Shield, Moon, Clock, Battery, Signal, Zap } from "lucide-react"
+import { motion } from "framer-motion"
+import { BarChart3, Clock, Moon, Shield, Smartphone } from "lucide-react"
+
+const USAGE = {
+    today: [
+        { app: "Messages", minutes: 42 },
+        { app: "Maps", minutes: 28 },
+        { app: "YouTube", minutes: 18 },
+        { app: "Roblox", minutes: 12 },
+    ],
+    week: [
+        { app: "Messages", minutes: 260 },
+        { app: "Maps", minutes: 180 },
+        { app: "YouTube", minutes: 140 },
+        { app: "Roblox", minutes: 95 },
+    ],
+}
+
+const SNAPSHOTS = [
+    { title: "Bedtime", value: "8:30 PM", detail: "Auto-lock + low blue light", icon: Moon },
+    { title: "Mode", value: "Default", detail: "Curated apps + safe browser", icon: Shield },
+    { title: "Exceptions", value: "Grandparents, School", detail: "Always ring through", icon: Smartphone },
+]
 
 export default function DashboardDemo() {
-    const [isPaused, setIsPaused] = useState(false)
-    const [bedtimeActive, setBedtimeActive] = useState(false)
-    const [currentMode, setCurrentMode] = useState("Home")
+    const [windowView, setWindowView] = useState<'today' | 'week'>('today')
+    const usage = USAGE[windowView]
+    const maxMinutes = Math.max(...usage.map((d) => d.minutes))
+    const total = usage.reduce((sum, item) => sum + item.minutes, 0)
 
     return (
         <section id="demo" className="py-24 bg-[#030303] border-b border-white/[0.05]">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
+                <div className="flex flex-col lg:flex-row gap-16 items-start">
 
-                    {/* Left: Interactive Control Panel */}
-                    <div className="flex-1 w-full order-2 lg:order-1">
-                        <div className="flex items-center gap-2 mb-6">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Live Simulation</span>
+                    {/* Left: Usage narrative */}
+                    <div className="flex-1 w-full order-2 lg:order-1 space-y-8">
+                        <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Parent Dashboard</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Take Control Instantly</h2>
-                        <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-                            Simulate the parent experience. Every action you take here reflected on the device in real-time. Control doesn't have to be complex.
-                        </p>
-
                         <div className="space-y-4">
-                            <ControlButton
-                                active={isPaused}
-                                onClick={() => setIsPaused(!isPaused)}
-                                title="Pause Device"
-                                desc="Instantly lock all screen interaction."
-                                icon={Zap}
-                                activeColor="bg-amber-500/20 text-amber-500 border-amber-500/30"
-                            />
-                            <ControlButton
-                                active={bedtimeActive}
-                                onClick={() => setBedtimeActive(!bedtimeActive)}
-                                title="Enforce Bedtime"
-                                desc="Fade screen to black & disable apps."
-                                icon={Moon}
-                                activeColor="bg-blue-500/20 text-blue-500 border-blue-500/30"
-                            />
-                            <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 group cursor-pointer hover:border-primary/30 transition-all">
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                                        <Shield className="w-5 h-5 text-slate-400" />
+                            <h2 className="text-3xl md:text-5xl font-bold text-white">Usage at a glance</h2>
+                            <p className="text-slate-400 text-lg leading-relaxed max-w-2xl">
+                                Minimalist, shadcn-inspired cards. Just the important signals: where time goes, what mode is active, and when the phone puts itself to bed.
+                            </p>
+                        </div>
+
+                        <div className="inline-flex rounded-full bg-white/5 border border-white/10 p-1 text-xs font-black uppercase tracking-[0.2em]">
+                            {[{ id: 'today', label: 'Today' }, { id: 'week', label: '7 days' }].map((option) => (
+                                <button
+                                    key={option.id}
+                                    onClick={() => setWindowView(option.id as 'today' | 'week')}
+                                    className={`px-4 py-2 rounded-full transition-all ${windowView === option.id ? 'bg-white text-black shadow-sm' : 'text-slate-400 hover:text-white'}`}
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10">
+                                <div className="flex items-center justify-between mb-6">
+                                    <div>
+                                        <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-black">Screen Time</p>
+                                        <h3 className="text-3xl font-black text-white">{total}m</h3>
                                     </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-white font-bold">Switch Mode</h4>
-                                        <p className="text-slate-500 text-xs">Current: {currentMode}</p>
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                        <BarChart3 className="w-5 h-5 text-primary" />
                                     </div>
                                 </div>
-                                <div className="flex gap-2">
-                                    {["School", "Home", "Travel"].map((mode) => (
-                                        <button
-                                            key={mode}
-                                            onClick={() => setCurrentMode(mode)}
-                                            className={`flex-1 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${currentMode === mode
-                                                ? "bg-primary text-black"
-                                                : "bg-white/5 text-slate-500 hover:text-white"
-                                                }`}
+                                <div className="space-y-4">
+                                    {usage.map((item, idx) => (
+                                        <motion.div
+                                            key={item.app}
+                                            initial={{ opacity: 0, y: 6 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: idx * 0.05 }}
+                                            className="space-y-2"
                                         >
-                                            {mode}
-                                        </button>
+                                            <div className="flex items-center justify-between text-sm">
+                                                <span className="text-white font-medium">{item.app}</span>
+                                                <span className="text-slate-400 font-bold">{item.minutes}m</span>
+                                            </div>
+                                            <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                                                <div
+                                                    className="h-full bg-primary/80 rounded-full"
+                                                    style={{ width: `${Math.round((item.minutes / maxMinutes) * 100)}%` }}
+                                                />
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/10 space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                        <Clock className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-black">Focus Windows</p>
+                                        <h3 className="text-white font-bold text-lg">Schedule keeps them on track</h3>
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    {SNAPSHOTS.map((item) => (
+                                        <div key={item.title} className="flex items-start gap-3 p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
+                                                <item.icon className="w-4 h-4 text-primary" />
+                                            </div>
+                                            <div>
+                                                <div className="text-white font-semibold text-sm">{item.title}</div>
+                                                <div className="text-slate-300 font-bold text-sm">{item.value}</div>
+                                                <div className="text-slate-500 text-xs">{item.detail}</div>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right: The Response Device */}
+                    {/* Right: Minimal visualizer */}
                     <div className="flex-1 w-full order-1 lg:order-2">
-                        <div className="relative w-[300px] h-[600px] mx-auto bg-[#080808] rounded-[3.5rem] border-[8px] border-[#1a1a1a] shadow-[0_50px_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
-                            {/* Screen Content - White Mode */}
-                            <div className="absolute inset-1 rounded-[3.1rem] overflow-hidden bg-white">
-                                <div className="w-full h-full flex flex-col p-8 pt-12 relative">
-                                    {/* Status Bar */}
-                                    <div className="flex justify-between items-center px-2 mb-10">
-                                        <span className="text-black font-bold text-[13px]">9:41</span>
-                                        <div className="flex gap-1.5 items-center grayscale opacity-60">
-                                            <Battery className="w-3.5 h-3.5 text-black" />
-                                            <Signal className="w-3.5 h-3.5 text-black" />
-                                        </div>
-                                    </div>
-
-                                    {/* Dynamic Island Pill */}
-                                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-[60] flex items-center justify-end px-3">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 opacity-40" />
-                                    </div>
-
-                                    <AnimatePresence mode="wait">
-                                        {isPaused ? (
-                                            <motion.div
-                                                key="paused"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                className="absolute inset-0 z-50 bg-black flex flex-col items-center justify-center p-8 text-center"
-                                            >
-                                                <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center mb-6">
-                                                    <Zap className="w-8 h-8 text-amber-500" />
-                                                </div>
-                                                <h3 className="text-white font-bold text-xl mb-2 font-heading">Paused</h3>
-                                                <p className="text-slate-500 text-sm">Focus time active. Talk to your parent to unlock.</p>
-                                            </motion.div>
-                                        ) : bedtimeActive ? (
-                                            <motion.div
-                                                key="bedtime"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                className="absolute inset-0 z-50 bg-[#03060a] flex flex-col items-center justify-center p-8 text-center"
-                                            >
-                                                <Moon className="w-12 h-12 text-blue-500 mb-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                                                <h3 className="text-white font-bold text-2xl mb-2 font-heading">Sleep Mode</h3>
-                                                <div className="w-24 h-1 bg-white/5 rounded-full overflow-hidden mt-4">
-                                                    <motion.div
-                                                        initial={{ x: "-100%" }}
-                                                        animate={{ x: 0 }}
-                                                        className="h-full bg-blue-500 w-full"
-                                                    />
-                                                </div>
-                                            </motion.div>
-                                        ) : (
-                                            <motion.div
-                                                key="normal"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                className="flex-1 flex flex-col"
-                                            >
-                                                <div className="flex flex-col items-center mb-10">
-                                                    <div className="text-[10px] font-black uppercase tracking-widest text-[#d4af37] mb-2">{currentMode} Mode</div>
-                                                    <h4 className="text-black text-[32px] font-heading font-black tracking-tight text-center leading-[1.1]">Good afternoon</h4>
-                                                </div>
-
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    {[
-                                                        { name: "Phone", color: "bg-[#4ade80]" },
-                                                        { name: "Classroom", color: "bg-blue-500" },
-                                                        { name: "Calculator", color: "bg-[#94a3b8]" },
-                                                        { name: "Maps", color: "bg-white border border-black/5" },
-                                                    ].map((app) => (
-                                                        <div key={app.name} className="aspect-square rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col items-center justify-center gap-2 shadow-sm">
-                                                            <div className={`w-12 h-12 rounded-2xl ${app.color} flex items-center justify-center shadow-lg shadow-black/5`}>
-                                                                <div className="w-4 h-4 rounded bg-white/20" />
-                                                            </div>
-                                                            <span className="text-[9px] font-bold text-black/30">{app.name}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="mt-auto mb-4 p-5 rounded-3xl bg-primary/5 border border-primary/10 text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <Clock className="w-3.5 h-3.5 text-primary" />
-                                                        <span className="text-[9px] font-black uppercase tracking-widest text-primary">Remaining Limit</span>
-                                                    </div>
-                                                    <p className="text-black font-black text-lg tracking-tighter">2h 30m</p>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Home Bar */}
-                                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-black/10 rounded-full" />
+                        <div className="p-8 rounded-[2rem] bg-[#0d0d0d] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.5)] w-full max-w-xl mx-auto">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-black">Usage Details</p>
+                                    <h3 className="text-white font-black text-2xl">Phone snapshot</h3>
+                                </div>
+                                <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em]">
+                                    Visual only
                                 </div>
                             </div>
 
-                            {/* Physical Buttons (Mockup) */}
-                            <div className="absolute -left-[10px] top-28 w-[3px] h-12 bg-[#222] rounded-l-md" />
-                            <div className="absolute -left-[10px] top-44 w-[4px] h-16 bg-[#222] rounded-l-md" />
-                            <div className="absolute -right-[10px] top-48 w-[4px] h-20 bg-[#222] rounded-r-md" />
+                            <div className="rounded-2xl border border-white/5 bg-white/5">
+                                <div className="grid grid-cols-3 text-[11px] uppercase tracking-[0.2em] text-slate-400 font-black px-4 py-3">
+                                    <span>App</span>
+                                    <span className="text-right">Minutes</span>
+                                    <span className="text-right">Share</span>
+                                </div>
+                                <div className="divide-y divide-white/5">
+                                    {usage.map((item) => {
+                                        const share = Math.round((item.minutes / total) * 100)
+                                        return (
+                                            <div key={item.app} className="px-4 py-3 flex items-center text-sm text-white/90">
+                                                <div className="flex items-center gap-3 flex-1">
+                                                    <span className="w-2 h-2 rounded-full bg-primary/80" />
+                                                    <span className="font-semibold">{item.app}</span>
+                                                </div>
+                                                <div className="w-16 text-right text-slate-300 font-bold">{item.minutes}m</div>
+                                                <div className="w-16 text-right text-slate-400 font-bold">{share}%</div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="mt-6 grid sm:grid-cols-3 gap-3">
+                                {[{ label: 'Limit left', value: '2h 30m' }, { label: 'Mode', value: 'Default' }, { label: 'Status', value: 'Calm' }].map((chip) => (
+                                    <div key={chip.label} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                        <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-black">{chip.label}</div>
+                                        <div className="text-white font-bold text-lg">{chip.value}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                    <Shield className="w-5 h-5 text-primary" />
+                                </div>
+                                <div>
+                                    <div className="text-white font-semibold">Protections stay on</div>
+                                    <div className="text-slate-400 text-sm">App locks, filtered web, location-aware rules.</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
         </section>
-    )
-}
-
-function ControlButton({ active, onClick, title, desc, icon: Icon, activeColor }: any) {
-    return (
-        <button
-            onClick={onClick}
-            className={`w-full p-6 rounded-2xl border transition-all duration-300 text-left ${active
-                ? activeColor
-                : "bg-[#0d0d0d] border-white/10 hover:border-white/20"
-                }`}
-        >
-            <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${active ? 'bg-current opacity-20' : 'bg-white/5'}`}>
-                    <Icon className={`w-5 h-5 ${active ? 'text-current' : 'text-slate-400'}`} />
-                </div>
-                <div>
-                    <h4 className={`font-bold ${active ? 'text-current' : 'text-white'}`}>{title}</h4>
-                    <p className="text-slate-500 text-xs">{desc}</p>
-                </div>
-            </div>
-        </button>
     )
 }
